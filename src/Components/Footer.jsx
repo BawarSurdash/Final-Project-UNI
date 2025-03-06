@@ -21,7 +21,7 @@ export default function Footer() {
             <input
               type="email"
               placeholder="Your email address ..."
-              className="bg-gray-800 text-gray-300 px-4 py-2 rounded-full outline-none w-90"
+              className="bg-gray-800 transition-all duration-300 text-gray-300 px-4 py-2 rounded-full  w-90"
             />
            <Link to="/"> <FaEnvelope className="absolute cursor-pointer right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </Link>
