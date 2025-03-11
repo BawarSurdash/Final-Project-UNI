@@ -34,7 +34,10 @@ const AuthPage = () => {
 
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userNickname', user.nickname);
-            window.location.href = '/';
+            navigate('/', { 
+                state: { notification: 'login' },
+                replace: true
+            });
 
         } else {
             // Sign Up Logic
@@ -65,7 +68,10 @@ const AuthPage = () => {
             localStorage.setItem('users', JSON.stringify([...users, newUser]));
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userNickname', newUser.nickname);
-            window.location.href = '/';
+            navigate('/', { 
+                state: { notification: 'login' },
+                replace: true
+            });
         }
     };
 
