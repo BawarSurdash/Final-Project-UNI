@@ -100,17 +100,7 @@ const Contact = () => {
               />
             </Form.Item>
           </div>
-          <Form.Item
-            name="dateRange"
-            label="Event Duration"
-            rules={[{ required: true, message: 'Please select date range!' }]}
-          >
-            <RangePicker
-              className="custom-picker"
-              showTime={{ format: 'HH:mm' }}
-              format="YYYY-MM-DD HH:mm"
-            />
-          </Form.Item>
+     
           <Form.Item
             name="message"
             rules={[{ required: true, message: 'Please input your message!' }]}

@@ -10,7 +10,7 @@ import News from './Components/news'
 import Contact from './Components/contact'
 import Footer from './Components/Footer'
 import Login from './Components/Login'
-
+import Dashboard from './Components/dashboard'
 function App() {
 
   return (
@@ -18,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+        
           <Route path='/' element={<Home />} />
           <Route path='/services' element={<Services />} />
           <Route path='/events' element={<Event />} />
@@ -26,6 +27,7 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/footer' element={<Footer />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/dashboard' element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </>
