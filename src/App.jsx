@@ -9,6 +9,8 @@ import About from './Components/about'
 import News from './Components/news'
 import Contact from './Components/contact'
 import Footer from './Components/Footer'
+import Login from './Components/Login'
+
 function App() {
 
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route path='/news' element={<News />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/footer' element={<Footer />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>

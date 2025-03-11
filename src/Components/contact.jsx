@@ -2,6 +2,7 @@ import 'antd/dist/reset.css';
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { Button, DatePicker, Form } from 'antd';
 import './Contact.css';
+import Cover from './cover';
 import Footer from './Footer';
 
 const { RangePicker } = DatePicker;
@@ -14,7 +15,8 @@ const Contact = () => {
   };
 
   return (
-    <div className="text-center pt-20">
+    <div className="text-center pt-16">
+    <Cover title="Contact" sub1="Home" sub2="Contact" />
       <h2 className="text-lg font-semibold mb-6">
         Contact us if you need our services. We will be happy to make your events memorable!
       </h2>

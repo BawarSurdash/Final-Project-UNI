@@ -1,12 +1,53 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/imgs/logo.png'; // Add this import at the top
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userNickname, setUserNickname] = useState('');
+    const [showLogout, setShowLogout] = useState(false);
+    const navigate = useNavigate();
+
+    // Check if user is logged in on component mount
+    useEffect(() => {
+        const checkLoginStatus = () => {
+            const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const nickname = localStorage.getItem('userNickname') || '';
+            setIsLoggedIn(loggedIn);
+            setUserNickname(nickname);
+        };
+
+        // Check initially
+        checkLoginStatus();
+        
+        // Add event listener for storage changes
+        window.addEventListener('storage', checkLoginStatus);
+        
+        return () => {
+            window.removeEventListener('storage', checkLoginStatus);
+        };
+    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleProfileClick = () => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        } else {
+            // Toggle logout dropdown
+            setShowLogout(!showLogout);
+        }
+    };
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUserNickname('');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userNickname');
+        navigate('/');
     };
 
     return (
@@ -78,6 +119,48 @@ const Navbar = () => {
                             Contact
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
+                        
+                        {/* Profile Section */}
+                        <div className="relative">
+                            <button 
+                                onClick={handleProfileClick}
+                                className="relative !text-orange-500 hover:!text-orange-600 px-3 py-2 text-sm font-medium transition-all duration-300 group"
+                            >
+                                {isLoggedIn ? (
+                                    <>
+                                        <span className="flex items-center">
+                                            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                            </svg>
+                                            {userNickname}
+                                        </span>
+                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="flex items-center">
+                                            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                            </svg>
+                                            Profile
+                                        </span>
+                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
+                                    </>
+                                )}
+                            </button>
+                            
+                            {/* Logout dropdown */}
+                            {isLoggedIn && showLogout && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
+                                    <button 
+                                        onClick={handleLogout}
+                                        className="block w-full text-left px-4 py-2 text-sm !text-orange-500 hover:!text-orange-600 hover:bg-gray-50 transition-colors duration-300"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 
@@ -130,6 +213,41 @@ const Navbar = () => {
                         >
                             Contact
                         </Link>
+                        
+                        {/* Mobile Profile Section */}
+                        {isLoggedIn ? (
+                            <>
+                                <div 
+                                    className="flex items-center justify-center text-gray-700 hover:text-orange-500 hover:bg-gray-50 px-4 py-2 rounded-md text-sm font-medium text-center w-full transition-colors duration-300"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                    {userNickname}
+                                </div>
+                                <button 
+                                    onClick={() => {
+                                        handleLogout();
+                                        setIsMenuOpen(false);
+                                    }}
+                                    className="text-gray-700 hover:text-orange-500 hover:bg-gray-50 px-4 py-2 rounded-md text-sm font-medium text-center w-full transition-colors duration-300"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <Link 
+                                to="/login" 
+                                className="flex items-center justify-center text-gray-700 hover:text-orange-500 hover:bg-gray-50 px-4 py-2 rounded-md text-sm font-medium text-center w-full"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                Profile / Login
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>

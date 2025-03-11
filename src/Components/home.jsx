@@ -13,7 +13,7 @@ const contentStyle = {
     textAlign: 'center',
     background: '#364d79',
     position: 'relative',
-    transition: 'all 0.5s',  // Add transition to content
+    transition: 'all 0.5s',  
 };
 
 const Home = () => {
