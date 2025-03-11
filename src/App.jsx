@@ -11,6 +11,7 @@ import Contact from './Components/contact'
 import Footer from './Components/Footer'
 import Login from './Components/Login'
 import Dashboard from './Components/dashboard'
+import Profile from './Components/profile'
 function App() {
 
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/footer' element={<Footer />} />
           <Route path='/login' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>
