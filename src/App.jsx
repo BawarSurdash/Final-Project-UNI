@@ -12,6 +12,8 @@ import Footer from './Components/Footer'
 import Login from './Components/Login'
 import Dashboard from './Components/dashboard'
 import Profile from './Components/profile'
+import Notification from './Components/notification'
+import Gallery from './Components/gallery'
 function App() {
 
   return (
@@ -30,6 +32,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/notification' element={<Notification />} />
+          <Route path="/gallery" element={<Gallery />} />
+
         </Routes>
       </BrowserRouter>
     </>
